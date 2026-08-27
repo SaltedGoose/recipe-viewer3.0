@@ -43,8 +43,7 @@ request.onupgradeneeded = function (event) {
     if (!db.objectStoreNames.contains(STORE_NAME)) {
 
         const store = db.createObjectStore(STORE_NAME, {
-            keyPath: "id",
-            autoIncrement: true
+            keyPath: "id"
         });
 
         // Allows recipes to be searched by name
@@ -69,7 +68,6 @@ request.onsuccess = async function (event) {
     db = event.target.result;
 
     console.log("IndexedDB connected");
-    alert("IndexDB connected!");
 
     if (navigator.onLine) {
         await readDB("Update");
@@ -291,10 +289,12 @@ async function writeToSupabase(recipe) {
 
 async function uploadPendingRecipes(indexDBRecipes) {
 
+    alert("Upload");
     const pendingRecipes = indexDBRecipes.filter(recipe => recipe.status === "Pending");
 
     if (pendingRecipes.length === 0) {
         console.log("No pending recipes to upload.");
+        alert("No pending recipes to upload.");
         return;
     }
 
