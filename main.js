@@ -69,6 +69,7 @@ request.onsuccess = async function (event) {
     db = event.target.result;
 
     console.log("IndexedDB connected");
+    alert("IndexDB connected!");
 
     if (navigator.onLine) {
         await readDB("Update");
