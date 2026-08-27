@@ -289,12 +289,10 @@ async function writeToSupabase(recipe) {
 
 async function uploadPendingRecipes(indexDBRecipes) {
 
-    alert("Upload");
     const pendingRecipes = indexDBRecipes.filter(recipe => recipe.status === "Pending");
 
     if (pendingRecipes.length === 0) {
         console.log("No pending recipes to upload.");
-        alert("No pending recipes to upload.");
         return;
     }
 
