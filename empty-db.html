@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear Recipe Database</title>
+</head>
+
+<body>
+
+    <h1>Clear Recipe Database</h1>
+
+    <button id="clear">Clear IndexedDB</button>
+
+    <p id="status"></p>
+
+    <script>
+
+        document.getElementById("clear").addEventListener("click", () => {
+
+            const request = indexedDB.deleteDatabase("recipeDB");
+
+            request.onsuccess = () => {
+                console.log("recipeDB deleted");
+
+                document.getElementById("status").textContent =
+                    "recipeDB has been completely deleted.";
+            };
+
+            request.onerror = () => {
+                console.error("Failed to delete recipeDB");
+
+                document.getElementById("status").textContent =
+                    "Failed to delete recipeDB.";
+            };
+
+            request.onblocked = () => {
+                console.warn("Database deletion blocked");
+
+                document.getElementById("status").textContent =
+                    "Deletion is blocked. Close the recipe website and try again.";
+            };
+
+        });
+
+    </script>
+
+</body>
+</html>
