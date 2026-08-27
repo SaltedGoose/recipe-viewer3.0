@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <script>
+        navigator.serviceWorker.register("./sw.js")
+            .then(registration => {
+                console.log("Service worker registered");
+            })
+            .catch(error => {
+                console.error("Service worker registration failed:", error);
+            });
+    </script>
+    <nav>
+        <div id="top-nav">
+            <h1>Recipe Viewer</h1>
+            <button id="burger-button">
+                <img id="burger-button-img" src="images/burger button.png" alt="Menu">
+            </button>
+        </div>
+
+        <div id="bottom-nav">
+            <h2 id="home-button" class="nav-button">Home</h2>
+            <h2 id="add-button" class="nav-button">Add</h2>
+            <form>
+                <input id="recipe-search" type="text" placeholder="Recipe Name" autocomplete="off">
+                <button id="search" type="button">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div id="show-recipe">
+        <h2 id="show-recipe-name"></h2>
+        <img id="show-recipe-image" src="" alt="">
+        <h3 id="show-recipe-description"></h3>
+        <h3>Ingredients</h3>
+        <ul id="show-recipe-ingredients"></ul>
+        <h3>Instructions</h3>
+        <ol id="show-recipe-instructions"></ol>
+        <button id="close-recipe">Close</button>
+    </div>
+    <div id="recipe-search-results">
+        <h2>Search Results</h2>
+        <div id="result-display">
+        </div>
+        <button id="result-close">Close</button>
+    </div>
+    <div id="add-new-recipe">
+        <h2>Tell me about your creation:</h2>
+        <form id="recipe-input-form">
+            <label for="new-recipe-name">Recipe Name:</label>
+            <input class="recipe-input" type="text" name="new-recipe-name" id="new-recipe-name" placeholder="Recipe Name">
+            <label for="new-recipe-type">Recipe Type:</label>
+            <select name="new-recipe-type" id="new-recipe-type">
+                <option value="" selected disabled>Select a type:</option>
+                <option value="Starter">Starter</option>
+                <option value="Main">Main</option>
+                <option value="Desert">Desert</option>
+            </select>
+            <label for="new-recipe-description">Recipe Description:</label>
+            <input class="recipe-input" type="text" name="new-recipe-description" id="new-recipe-description" placeholder="Describe your recipe">
+            <label for="new-recipe-ingredients">Recipe Ingredients:</label>
+            <textarea col="4" rows="30" name="new-recipe-ingredients" id="new-recipe-ingredients" placeholder="Enter your ingredients seperated on a new line e.g. 2 tbsp Butter"></textarea>
+            <label for="new-recipe-instruction">Recipe Instructions:</label>
+            <textarea col="4" rows="30" name="new-recipe-instructions" id="new-recipe-instructions" placeholder="Enter the instructions seperated on a new line."></textarea>
+            <input type="file" id="recipe-image-input" accept="image/*" hidden>
+            <button id="recipe-image-button" type="button">📷 Add Recipe Image</button>
+            <img id="recipe-image-preview" src="images/burger button.png" alt="recipe-image-preview">
+            <button type="button" id="submit-new-recipe">Submit</button>
+            <button type="button" id="cancel-recipe">Cancel</button>
+        </form>
+    </div>
+    <main>
+        <div id="food-preview">
+            <div class="recipe-image"><img class="food-preview-img" loading="lazy" src="images/mains/Cheesy Chicken Wraps.JPG" alt="cheesy-chicken-wraps"></div>
+            <div class="recipe-image"><img class="food-preview-img" loading="lazy" src="images/starters/Mozzarella Triangles.jpg" alt="mozzarella-triangles"></div>
+            <div class="recipe-image"><img class="food-preview-img" loading="lazy" src="images/mains/Chicken Broccoli Pasta Bake.JPG" alt="Chicken Broccoli Pasta Bake"></div>
+            <div class="recipe-image"><img class="food-preview-img" loading="lazy" src="images/mains/Cajun Chicken Alfredo with Broccoli.JPG" alt="Cajun Chicken Alfredo with Broccoli"></div>
+            <div class="recipe-image"><h2 id="sub-title">Recipe Viewer</h2></div>
+            <div class="recipe-image"><img class="food-preview-img" loading="lazy" src="images/mains/Chicken Parmesan Calzone.jpg" alt="Chicken Parmesan Calzone"></div>
+            <div class="recipe-image"><img class="food-preview-img" loading="lazy" src="images/deserts/Scooby Snacks.jpg" alt="Scooby Snacks"></div>
+            <div class="recipe-image"><img class="food-preview-img" loading="lazy" src="images/mains/Garlic Butter Chicken Pasta.jpg" alt="Garlic Butter Chicken Pasta"></div>
+            <div class="recipe-image"><img class="food-preview-img" loading="lazy" src="images/deserts/Smartie Brownie Cookies.JPG" alt="Smartie Brownie Cookies"></div>
+        </div>
+
+        <div id="food-carrossel-display">
+            <div class="food-section">
+                <h2>Starters</h2>
+                <div id="starters" class="food-carrossel">
+                    <button class="rotate-btn rwd" data-type="Starters">&lt;</button>
+                    <img class="food-img" id="starter-img" src="" alt="">
+                    <button class="rotate-btn fwd" data-type="Starters">&gt;</button>
+                </div>
+                <h3>Mozzarella Triangles</h3>
+            </div>
+            <div class="food-section">
+                <h2>Mains</h2>
+                <div id="mains" class="food-carrossel">
+                    <button class="rotate-btn rwd" data-type="Mains">&lt;</button>
+                    <img class="food-img" id="main-img" src="" alt="">
+                    <button class="rotate-btn fwd" data-type="Mains">&gt;</button>
+                </div>
+                <h3>Garlic Butter Chicken Pasta</h3>
+            </div>
+            <div class="food-section">
+                <h2>Deserts</h2>
+                <div id="deserts" class="food-carrossel">
+                    <button class="rotate-btn rwd" data-type="Deserts">&lt;</button>
+                    <img class="food-img" id="desert-img" src="" alt="">
+                    <button class="rotate-btn fwd" data-type="Deserts">&gt;</button>
+                </div>
+                <h3>Scooby Snacks</h3>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <h4 id="footer-text"></h4>
+        <button id="empty-indexdb">empty</button>
+    </footer>
+
+    <script src="./jquery-4.0.0.min.js"></script>
+    <script>
+        let today = new Date().getFullYear();
+        $("#footer-text").text(`Niall Booth - ${today}`)
+    </script>
+    <script src="main.js" type="module"></script>
+</body>
+</html>

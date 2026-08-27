@@ -1,0 +1,21 @@
+{
+    "name": "Recipe Viewer",
+    "short_name": "Recipes",
+    "description": "My personal recipe collection",
+    "start_url": "./",
+    "display": "standalone",
+    "background_color": "#FFE2AF",
+    "theme_color": "#FFE2AF",
+    "icons": [
+        {
+            "src": "images/burger button.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "images/burger button.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
